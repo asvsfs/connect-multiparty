@@ -100,7 +100,7 @@ exports = module.exports = function(options){
       try {
         req.body = qs.parse(data);
         req.files = qs.parse(files);
-        next();
+        next(err);
       } catch (err) {
         err.status = 400;
         next(err);
