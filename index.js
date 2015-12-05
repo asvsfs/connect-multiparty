@@ -38,7 +38,8 @@ var typeis = require('type-is');
 exports = module.exports = function(options){
   options = options || {};
 
-  return function multipart(err, req, res, next) {
+  return function multipart(errFile, req, res, next) {
+    console.log("Multipart")
     if (req._body) return next();
     req.body = req.body || {};
     req.files = req.files || {};
@@ -93,6 +94,7 @@ exports = module.exports = function(options){
     });
 
     form.on('close', function() {
+      console.log("Close multipart")
       if (done) return;
 
       done = true;
@@ -100,7 +102,7 @@ exports = module.exports = function(options){
       try {
         req.body = qs.parse(data);
         req.files = qs.parse(files);
-        next(err);
+        next(errFile);
       } catch (err) {
         err.status = 400;
         next(err);
