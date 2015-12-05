@@ -38,8 +38,7 @@ var typeis = require('type-is');
 exports = module.exports = function(options){
   options = options || {};
 
-  return function multipart(req, res, next) {
-    console.log("multipart")
+  return function multipart(err, req, res, next) {
     if (req._body) return next();
     req.body = req.body || {};
     req.files = req.files || {};
